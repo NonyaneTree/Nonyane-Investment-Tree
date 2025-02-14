@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bakes By RORO</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffe6f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #ff99cc;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+        .product {
+            background: #fff;
+            border: 2px solid #ff99cc;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            width: 250px;
+            margin: 15px;
+            padding: 15px;
+            text-align: center;
+        }
+        .product img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .product h2 {
+            font-size: 1.2em;
+            color: #ff66b2;
+        }
+        .product p {
+            font-size: 1em;
+            color: #444;
+        }
+        .product input[type="checkbox"] {
+            margin-top: 10px;
+        }
+        .checkout-btn {
+            display: block;
+            background-color: #ff66b2;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            margin: 20px auto;
+            width: 150px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1em;
+        }
+        .checkout-btn:hover {
+            background-color: #e0559f;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Bakes By RORO</h1>
+    </header>
+    <form action="checkout.html" method="get">
+        <div class="container">
+            <div class="product">
+                <img src="cake1.jpg" alt="Chocolate Cake">
+                <h2>Chocolate Cake</h2>
+                <p>R120.00</p>
+                <input type="checkbox" name="product" value="Chocolate Cake - R120.00"> Select
+            </div>
+            <div class="product">
+                <img src="cupcake1.jpg" alt="Vanilla Cupcake">
+                <h2>Vanilla Cupcake</h2>
+                <p>R15.00 each</p>
+                <input type="checkbox" name="product" value="Vanilla Cupcake - R15.00"> Select
+            </div>
+            <div class="product">
+                <img src="pastry1.jpg" alt="Strawberry Pastry">
+                <h2>Strawberry Pastry</h2>
+                <p>R25.00</p>
+                <input type="checkbox" name="product" value="Strawberry Pastry - R25.00"> Select
+            </div>
+            <div class="product">
+                <img src="cake2.jpg" alt="Red Velvet Cake">
+                <h2>Red Velvet Cake</h2>
+                <p>R150.00</p>
+                <input type="checkbox" name="product" value="Red Velvet Cake - R150.00"> Select
+            </div>
+            <div class="product">
+                <img src="cupcake2.jpg" alt="Chocolate Cupcake">
+                <h2>Chocolate Cupcake</h2>
+                <p>R15.00 each</p>
+                <input type="checkbox" name="product" value="Chocolate Cupcake - R15.00"> Select
+            </div>
+            <div class="product">
+                <img src="pastry2.jpg" alt="Cream Puff">
+                <h2>Cream Puff</h2>
+                <p>R20.00</p>
+                <input type="checkbox" name="product" value="Cream Puff - R20.00"> Select
+            </div>
+            <div class="product">
+                <img src="cake3.jpg" alt="Cheesecake">
+                <h2>Cheesecake</h2>
+                <p>R130.00</p>
+                <input type="checkbox" name="product" value="Cheesecake - R130.00"> Select
+            </div>
+            <div class="product">
+                <img src="cupcake3.jpg" alt="Red Velvet Cupcake">
+                <h2>Red Velvet Cupcake</h2>
+                <p>R18.00 each</p>
+                <input type="checkbox" name="product" value="Red Velvet Cupcake - R18.00"> Select
+            </div>
+            <div class="product">
+                <img src="pastry3.jpg" alt="Cinnamon Roll">
+                <h2>Cinnamon Roll</h2>
+                <p>R22.00</p>
+                <input type="checkbox" name="product" value="Cinnamon Roll - R22.00"> Select
+            </div>
+            <div class="product">
+                <img src="cake4.jpg" alt="Lemon Cake">
+                <h2>Lemon Cake</h2>
+                <p>R110.00</p>
+                <input type="checkbox" name="product" value="Lemon Cake - R110.00"> Select
+            </div>
+            <div class="product">
+                <img src="cupcake4.jpg" alt="Strawberry Cupcake">
+                <h2>Strawberry Cupcake</h2>
+                <p>R17.00 each</p>
+                <input type="checkbox" name="product" value="Strawberry Cupcake - R17.00"> Select
+            </div>
+            <div class="product">
+                <img src="pastry4.jpg" alt="Eclair">
+                <h2>Eclair</h2>
+                <p>R28.00</p>
+                <input type="checkbox" name="product" value="Eclair - R28.00"> Select
+            </div>
+        </div>
+        <button type="submit" class="checkout-btn">Go to Checkout</button>
+    </form>
+</body>
+  </html>
