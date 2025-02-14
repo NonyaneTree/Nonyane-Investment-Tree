@@ -69,6 +69,34 @@
         .checkout-btn:hover {
             background-color: #e0559f;
         }
+        .additional-info {
+            background: #fff;
+            border: 2px solid #ff99cc;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            margin: 15px auto;
+            padding: 15px;
+        }
+        .additional-info label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #ff66b2;
+            font-weight: bold;
+        }
+        .additional-info input[type="text"],
+        .additional-info input[type="tel"],
+        .additional-info textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        .additional-info textarea {
+            resize: vertical;
+            height: 100px;
+        }
     </style>
 </head>
 <body>
@@ -85,7 +113,7 @@
             </div>
             <div class="product">
                 <img src="cake2.jpg" alt="Vanilla Cupcake">
-                <h2>cake</h2>
+                <h2>Vanilla Cupcake</h2>
                 <p>R15.00 each</p>
                 <input type="checkbox" name="product" value="Vanilla Cupcake - R15.00"> Select
             </div>
@@ -101,56 +129,21 @@
                 <p>R150.00</p>
                 <input type="checkbox" name="product" value="Red Velvet Cake - R150.00"> Select
             </div>
-            <div class="product">
-                <img src="cake4.jpg" alt="Chocolate Cupcake">
-                <h2>Chocolate Cupcake</h2>
-                <p>R15.00 each</p>
-                <input type="checkbox" name="product" value="Chocolate Cupcake - R15.00"> Select
-            </div>
-            <div class="product">
-                <img src="cake5.jpg" alt="Cream Puff">
-                <h2>Cream Puff</h2>
-                <p>R20.00</p>
-                <input type="checkbox" name="product" value="Cream Puff - R20.00"> Select
-            </div>
-            <div class="product">
-                <img src="cake6.jpg" alt="Cheesecake">
-                <h2>Cheesecake</h2>
-                <p>R130.00</p>
-                <input type="checkbox" name="product" value="Cheesecake - R130.00"> Select
-            </div>
-            <div class="product">
-                <img src="cake7.jpg" alt="Red Velvet Cupcake">
-                <h2>Red Velvet Cupcake</h2>
-                <p>R18.00 each</p>
-                <input type="checkbox" name="product" value="Red Velvet Cupcake - R18.00"> Select
-            </div>
-            <div class="product">
-                <img src="cake8.jpg" alt="Cinnamon Roll">
-                <h2>Cinnamon Roll</h2>
-                <p>R22.00</p>
-                <input type="checkbox" name="product" value="Cinnamon Roll - R22.00"> Select
-            </div>
-            <div class="product">
-                <img src="cake9.jpg" alt="Lemon Cake">
-                <h2>Lemon Cake</h2>
-                <p>R110.00</p>
-                <input type="checkbox" name="product" value="Lemon Cake - R110.00"> Select
-            </div>
-            <div class="product">
-                <img src="cake10.jpg" alt="Strawberry Cupcake">
-                <h2>Strawberry Cupcake</h2>
-                <p>R17.00 each</p>
-                <input type="checkbox" name="product" value="Strawberry Cupcake - R17.00"> Select
-            </div>
-            <div class="product">
-                <img src="cake11.jpg" alt="Eclair">
-                <h2>Eclair</h2>
-                <p>R28.00</p>
-                <input type="checkbox" name="product" value="Eclair - R28.00"> Select
-            </div>
         </div>
+        
+        <!-- Additional Information Section -->
+        <div class="additional-info">
+            <label for="occasion">Occasion:</label>
+            <input type="text" id="occasion" name="occasion" placeholder="e.g. Birthday, Wedding, Baby Shower" required>
+
+            <label for="description">Description (max 200 words):</label>
+            <textarea id="description" name="description" maxlength="1200" placeholder="Describe any special requirements or customizations..." required></textarea>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+        </div>
+
         <button type="submit" class="checkout-btn">Go to Checkout</button>
     </form>
 </body>
-  </html>
+</html>
