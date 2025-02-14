@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Bakes By RORO</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffe6f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            background-color: #ff99cc;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border: 2px solid #ff99cc;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .products {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .products ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .products li {
+            background: #ffe6f0;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .address-input,
+        .date-input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .checkout-btn,
+        .payment-btn {
+            background-color: #ff66b2;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+        }
+        .checkout-btn:hover,
+        .payment-btn:hover {
+            background-color: #e0559f;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Checkout - Bakes By RORO</h1>
+    </header>
+    <div class="container">
+        <h2>Your Selected Products:</h2>
+        <div class="products">
+            <ul id="product-list">
+                <!-- Selected products will appear here -->
+            </ul>
+        </div>
+        <h2>Enter Your Address:</h2>
+        <input type="text" class="address-input" id="street" placeholder="Street" oninput="checkAddress()">
+        <input type="text" class="address-input" id="city" placeholder="City" oninput="checkAddress()">
+        <input type="text" class="address-input" id="postal" placeholder="Postal Code" oninput="checkAddress()">
+        
+        <h2>Birthday or Cake Needed Date:</h2>
+        <input type="date" class="date-input" id="event-date" oninput="checkAddress()">
+        
+        <button class="checkout-btn" id="checkout-btn" onclick="showPaymentOptions()">Checkout</button>
+        <button class="payment-btn" id="pay-arrival-btn">Pay on Arrival</button>
+        <button class="payment-btn" id="pay-later-btn" onclick="payLater()">Pay Later</button>
+    </div>
+
+    <script>
+        // Display selected products from roro.html
+        window.onload = function() {
+            const params = new URLSearchParams(window.location.search);
+            const productList = document.getElementById('product-list');
+            const products = params.getAll('product');
+            
+            if (products.length > 0) {
+                products.forEach(product => {
+                    const li = document.createElement('li');
+                    li.textContent = product;
+                    productList.appendChild(li);
+                });
+            } else {
+                productList.innerHTML = "<li>No products selected.</li>";
+            }
+        };
+
+        // Check if all address fields are filled
+        function checkAddress() {
+            const street = document.getElementById('street').value;
+            const city = document.getElementById('city').value;
+            const postal = document.getElementById('postal').value;
+            const eventDate = document.getElementById('event-date').value;
+            const checkoutBtn = document.getElementById('checkout-btn');
+
+            if (street && city && postal && eventDate) {
+                checkoutBtn.style.display = 'inline-block';
+            } else {
+                checkoutBtn.style.display = 'none';
+            }
+        }
+
+        // Show payment options
+        function showPaymentOptions() {
+            document.getElementById('checkout-btn').style.display = 'none';
+            document.getElementById('pay-arrival-btn').style.display = 'inline-block';
+            document.getElementById('pay-later-btn').style.display = 'inline-block';
+        }
+
+        // Pay Later: Send order details to Telegram
+        function payLater() {
+            const street = document.getElementById('street').value;
+            const city = document.getElementById('city').value;
+            const postal = document.getElementById('postal').value;
+            const eventDate = document.getElementById('event-date').value;
+            const params = new URLSearchParams(window.location.search);
+            const products = params.getAll('product');
+            const productList = products.join(", ");
+            const message = `New Order:\nProducts: ${productList}\nAddress:\nStreet: ${street}\nCity: ${city}\nPostal Code: ${postal}\nEvent Date: ${eventDate}\nPayment: Pay Later`;
+
+            const telegramToken = "7811511573:AAF8FHPT_f1eJ09L_SonNUmQ5Z8A2rPBYfU";
+            const chatId = "6436129085";
+            const url = `https://api.telegram.org/bot${telegramToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+            // Send order to Telegram
+            fetch(url)
+                .then(response => {
+                    if (response.ok) {
+                        alert("Order placed successfully! You chose to Pay Later.");
+                    } else {
+                        alert("Failed to send order. Please try again.");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("An error occurred. Please try again.");
+                });
+        }
+    </script>
+</body>
+</html>
