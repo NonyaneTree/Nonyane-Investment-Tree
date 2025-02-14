@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bakes By RORO</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            margin: 20px 0;
+            color: #333;
+        }
+        .loading-bar-container {
+            width: 80%;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 20px auto;
+            height: 10px;
+        }
+        .loading-bar {
+            width: 0;
+            height: 100%;
+            background-color: #ff6347;
+            animation: loading 3s linear forwards;
+        }
+        @keyframes loading {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+    </style>
+    <script>
+        // Redirect to roro.html after the animation
+        window.onload = function() {
+            setTimeout(function() {
+                window.location.href = "roro.html";
+            }, 3000); // 3 seconds to match animation duration
+        };
+    </script>
+</head>
+<body>
+    <h1>Bakes By RORO</h1>
+    <div class="loading-bar-container">
+        <div class="loading-bar"></div>
+    </div>
+</body>
+</html>
