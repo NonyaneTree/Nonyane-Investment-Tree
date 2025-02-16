@@ -11,6 +11,7 @@
             margin: 0;
             padding: 0;
             background-color: #f9f9f9;
+            overflow: hidden;
         }
         h1 {
             margin: 20px 0;
@@ -34,13 +35,102 @@
             0% { width: 0; }
             100% { width: 100%; }
         }
+
+        /* Animation for white and pink splashing */
+        .color-splash {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            top: 0;
+            animation-duration: 2s;
+            animation-timing-function: ease-in-out;
+        }
+        .white {
+            left: -50%;
+            background-color: white;
+            animation-name: moveWhite;
+        }
+        .pink {
+            right: -50%;
+            background-color: #ff005a;
+            animation-name: movePink;
+        }
+        @keyframes moveWhite {
+            0% { left: -50%; }
+            100% { left: 0; }
+        }
+        @keyframes movePink {
+            0% { right: -50%; }
+            100% { right: 0; }
+        }
+
+        /* Dots after splash */
+        .dots {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            opacity: 0;
+            animation: fadeInDots 1s forwards;
+        }
+        .white-dots {
+            background-color: white;
+        }
+        .pink-dots {
+            background-color: #ff005a;
+        }
+        @keyframes fadeInDots {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
     </style>
     <script>
-        // Redirect to roro.html after the animation
+        // Function to create dots
+        function createDots() {
+            const dotCount = 50; // Number of dots
+            const container = document.body;
+
+            for (let i = 0; i < dotCount; i++) {
+                // White dots on pink side
+                let whiteDot = document.createElement('div');
+                whiteDot.classList.add('dots', 'white-dots');
+                whiteDot.style.left = `${Math.random() * 50}%`;
+                whiteDot.style.top = `${Math.random() * 100}%`;
+                whiteDot.style.animationDelay = `${Math.random() * 1}s`;
+                container.appendChild(whiteDot);
+
+                // Pink dots on white side
+                let pinkDot = document.createElement('div');
+                pinkDot.classList.add('dots', 'pink-dots');
+                pinkDot.style.left = `${50 + Math.random() * 50}%`;
+                pinkDot.style.top = `${Math.random() * 100}%`;
+                pinkDot.style.animationDelay = `${Math.random() * 1}s`;
+                container.appendChild(pinkDot);
+            }
+        }
+
+        // Animate white and pink splashing
         window.onload = function() {
-            setTimeout(function() {
+            // Create white and pink elements
+            let white = document.createElement('div');
+            white.classList.add('color-splash', 'white');
+            document.body.appendChild(white);
+
+            let pink = document.createElement('div');
+            pink.classList.add('color-splash', 'pink');
+            document.body.appendChild(pink);
+
+            // After splash, create dots
+            setTimeout(() => {
+                white.remove();
+                pink.remove();
+                createDots();
+            }, 2000); // 2 seconds to match splash animation
+
+            // Redirect to roro.html after the animation
+            setTimeout(() => {
                 window.location.href = "roro.html";
-            }, 3000); // 3 seconds to match animation duration
+            }, 7000); // 7 seconds total
         };
     </script>
 </head>
