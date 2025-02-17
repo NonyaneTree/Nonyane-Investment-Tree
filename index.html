@@ -37,7 +37,6 @@
             position: absolute;
             width: 50px;
             height: 50px;
-            background-image: url('cake.png'); /* Replace with your cake image */
             background-size: cover;
             animation: cake-fall 3s forwards;
             display: none;
@@ -69,6 +68,9 @@
     <a href="roro.html" class="link" id="bakesByRoroLink">Bakes By Roro</a>
 
     <script>
+        // Array of icon images
+        const icons = ['1.png', 'with.png', '2.png', 'cake.png'];
+
         // Function to create falling dots
         function createFallingDots() {
             const dot = document.createElement('div');
@@ -80,19 +82,24 @@
             setTimeout(() => {
                 const cakeIcon = document.createElement('div');
                 cakeIcon.classList.add('cake-icon');
-                cakeIcon.style.left = `${dot.style.left}`; // Position the cake icon where the dot fell
+                cakeIcon.style.left = `${dot.style.left}`; // Position the icon where the dot fell
+
+                // Randomly select an icon from the array
+                const randomIcon = icons[Math.floor(Math.random() * icons.length)];
+                cakeIcon.style.backgroundImage = `url('${randomIcon}')`;
+
                 document.body.appendChild(cakeIcon);
 
                 // Show the cake icon and animate it
                 setTimeout(() => {
                     cakeIcon.style.display = 'block';
-                }, 1000); // Wait before showing the cake icon
+                }, 1000); // Wait before showing the icon
 
                 // Remove the falling dot after animation
                 setTimeout(() => {
                     dot.remove();
                 }, 3000); // Remove the dot after 3 seconds
-            }, 1000); // Delay the appearance of cake icon
+            }, 1000); // Delay the appearance of icon
         }
 
         // Create dots every 100 milliseconds
