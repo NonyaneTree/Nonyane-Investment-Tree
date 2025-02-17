@@ -39,7 +39,7 @@
             height: 50px;
             background-image: url('cake.png'); /* Replace with your cake image */
             background-size: cover;
-            animation: cake-fall 3s infinite;
+            animation: cake-fall 3s forwards;
             display: none;
         }
 
@@ -65,7 +65,7 @@
     </style>
 </head>
 <body>
-    <!-- Link to roro.html, but it'll redirect automatically after 7 seconds -->
+    <!-- Link to roro.html, but it will redirect automatically after 7 seconds -->
     <a href="roro.html" class="link" id="bakesByRoroLink">Bakes By Roro</a>
 
     <script>
@@ -86,22 +86,21 @@
                 // Show the cake icon and animate it
                 setTimeout(() => {
                     cakeIcon.style.display = 'block';
-                }, 1000);
+                }, 1000); // Wait before showing the cake icon
 
-                // Remove dot and cake icon after animation completes
+                // Remove the falling dot after animation
                 setTimeout(() => {
                     dot.remove();
-                    cakeIcon.remove();
-                }, 3000);
-            }, 1000); // Delay before cake icon starts animating
+                }, 3000); // Remove the dot after 3 seconds
+            }, 1000); // Delay the appearance of cake icon
         }
 
         // Create dots every 100 milliseconds
         const dotsInterval = setInterval(createFallingDots, 100);
 
-        // Stop the dot creation after 7 seconds
+        // Stop the dot creation and redirect after 7 seconds
         setTimeout(() => {
-            clearInterval(dotsInterval);
+            clearInterval(dotsInterval); // Stop creating new dots
             // Automatically redirect to roro.html after 7 seconds
             window.location.href = 'roro.html';
         }, 7000); // Redirect after 7 seconds
