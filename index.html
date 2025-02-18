@@ -3,114 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flour to Cake Animation</title>
+    <title>Bakes By Roro</title>
     <style>
         body {
             margin: 0;
+            padding: 0;
             overflow: hidden;
-            background-color: pink;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             height: 100vh;
-            position: relative;
+            animation: backgroundAnimation 5s infinite;
         }
 
-        .falling-dot {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background-color: white;
-            border-radius: 50%;
-            animation: fall 3s infinite;
-        }
-
-        @keyframes fall {
+        @keyframes backgroundAnimation {
             0% {
-                transform: translateY(-10px);
-                opacity: 1;
+                background-color: pink;
+            }
+            50% {
+                background-color: white;
             }
             100% {
-                transform: translateY(calc(100vh - 20px));
+                background-color: pink;
+            }
+        }
+
+        img {
+            width: 300px;
+            height: auto;
+            animation: fadeIn 3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% {
                 opacity: 0;
             }
-        }
-
-        .cake-icon {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background-size: cover;
-            animation: cake-fall 3s forwards;
-            display: none;
-        }
-
-        @keyframes cake-fall {
-            0% {
-                transform: translateY(-10px);
-            }
             100% {
-                transform: translateY(calc(100vh - 10px));
+                opacity: 1;
             }
-        }
-
-        .link {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 20px;
-            color: white;
-            text-decoration: none;
-            font-family: Arial, sans-serif;
         }
     </style>
 </head>
 <body>
-    <!-- Link to roro.html, but it will redirect automatically after 7 seconds -->
-    <a href="roro.html" class="link" id="bakesByRoroLink">Bakes By Roro</a>
+    <img src="roro.png" alt="Bakes By Roro">
 
     <script>
-        // Array of icon images
-        const icons = ['1.png', 'with.png', '2.png', 'cake.png'];
-
-        // Function to create falling dots
-        function createFallingDots() {
-            const dot = document.createElement('div');
-            dot.classList.add('falling-dot');
-            dot.style.left = `${Math.random() * window.innerWidth}px`;
-            document.body.appendChild(dot);
-
-            // Create cake icon at the dot's position
-            setTimeout(() => {
-                const cakeIcon = document.createElement('div');
-                cakeIcon.classList.add('cake-icon');
-                cakeIcon.style.left = `${dot.style.left}`; // Position the icon where the dot fell
-
-                // Randomly select an icon from the array
-                const randomIcon = icons[Math.floor(Math.random() * icons.length)];
-                cakeIcon.style.backgroundImage = `url('${randomIcon}')`;
-
-                document.body.appendChild(cakeIcon);
-
-                // Show the cake icon and animate it
-                setTimeout(() => {
-                    cakeIcon.style.display = 'block';
-                }, 1000); // Wait before showing the icon
-
-                // Remove the falling dot after animation
-                setTimeout(() => {
-                    dot.remove();
-                }, 3000); // Remove the dot after 3 seconds
-            }, 1000); // Delay the appearance of icon
-        }
-
-        // Create dots every 100 milliseconds
-        const dotsInterval = setInterval(createFallingDots, 100);
-
-        // Stop the dot creation and redirect after 7 seconds
-        setTimeout(() => {
-            clearInterval(dotsInterval); // Stop creating new dots
-            // Automatically redirect to roro.html after 7 seconds
-            window.location.href = 'roro.html';
-        }, 7000); // Redirect after 7 seconds
+        setTimeout(function() {
+            window.location.href = "roro.html";
+        }, 10000);
     </script>
 </body>
 </html>
