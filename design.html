@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Cake Designer</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+        #controls {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        #description {
+            width: 250px;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        #draw-button {
+            padding: 5px 10px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        #draw-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas-container"></div>
+    <div id="controls">
+        <input type="text" id="description" placeholder="Describe your cake...">
+        <button id="draw-button">Draw Cake</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.142.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.142.0/examples/js/controls/OrbitControls.js"></script>
+    <script>
+        let scene, camera, renderer, controls;
+
+        // Initialize Three.js
+        function init() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 5, 10);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+
+            // Add lighting
+            const light = new THREE.DirectionalLight(0xffffff, 1);
+            light.position.set(5, 10, 7).normalize();
+            light.castShadow = true;
+            scene.add(light);
+
+            const ambientLight = new THREE.AmbientLight(0x404040);
+            scene.add(ambientLight);
+
+            animate();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        function createCake(tiers, colors, decorations) {
+            // Clear previous cake
+            while (scene.children.length > 2) {
+                scene.remove(scene.children[2]);
+            }
+
+           const textureLoader = new THREE.TextureLoader();
+            const cakeTexture = textureLoader.load('text.png');
+            const geometry = new THREE.CylinderGeometry(2, 2, 1, 32);
+            const frostingGeometry = new THREE.CylinderGeometry(2.1, 2.1, 0.1, 32); // Slightly larger for frosting
+
+            const materials = colors.map(color => new THREE.MeshPhongMaterial({
+                map: cakeTexture, // Apply texture
+                color: color, // Mix texture with color
+            }));
+            const frostingMaterial = new THREE.MeshPhongMaterial({ color: 0xF0F0F0 }); // Light color for frosting
+
+            for (let i = 0; i < tiers; i++) {
+                const tier = new THREE.Mesh(geometry, materials[i % materials.length]);
+                tier.position.y = i + 0.5;
+                tier.scale.set(1 - (i * 0.2), 1, 1 - (i * 0.2));
+                tier.castShadow = true;
+                tier.receiveShadow = true;
+                scene.add(tier);
+
+                // Add frosting
+                const frosting = new THREE.Mesh(frostingGeometry, frostingMaterial);
+                frosting.position.y = i + 1; // Position frosting on top of the tier
+                frosting.castShadow = true;
+                frosting.receiveShadow = true;
+                scene.add(frosting);
+            }
+
+            // Add decorations
+            if (decorations.includes('sprinkles')) {
+                const sprinkleGeometry = new THREE.SphereGeometry(0.05, 8, 8);
+                const sprinkleMaterial = new THREE.MeshPhongMaterial({ color: 0xFFD700 });
+                for (let i = 0; i < 100; i++) {
+                    const sprinkle = new THREE.Mesh(sprinkleGeometry, sprinkleMaterial);
+                    sprinkle.position.set(
+                        Math.random() * 2 - 1,
+                        Math.random() * tiers + 0.5,
+                        Math.random() * 2 - 1
+                    );
+                    sprinkle.castShadow = true;
+                    scene.add(sprinkle);
+                }
+            }
+
+            if (decorations.includes('candles')) {
+                const candleGeometry = new THREE.CylinderGeometry(0.1, 0.1, 1, 16);
+                const candleMaterial = new THREE.MeshPhongMaterial({ color: 0xFF0000 });
+                for (let i = 0; i < 5; i++) {
+                    const candle = new THREE.Mesh(candleGeometry, candleMaterial);
+                    candle.position.set(
+                        Math.random() * 1.5 - 0.75,
+                        tiers + 0.5,
+                        Math.random() * 1.5 - 0.75
+                    );
+                    candle.castShadow = true;
+                    scene.add(candle);
+                }
+            }
+        }
+
+        function parseDescription(description) {
+            let tiers = 1;
+            let colors = ['#ffffff']; // Default to white
+            let decorations = [];
+
+            const tierMatch = description.match(/(\d+)-tier/i);
+            if (tierMatch) {
+                tiers = parseInt(tierMatch[1]);
+            }
+
+            const colorMatch = description.match(/(pink|red|blue|green|chocolate|white|yellow|purple)/gi);
+            if (colorMatch) {
+                colors = colorMatch.map(color => {
+                    switch (color.toLowerCase()) {
+                        case 'pink': return '#FFC0CB';
+                        case 'red': return '#FF0000';
+                        case 'blue': return '#0000FF';
+                        case 'green': return '#008000';
+                        case 'chocolate': return '#7B3F00';
+                        case 'white': return '#FFFFFF';
+                        case 'yellow': return '#FFFF00';
+                        case 'purple': return '#800080';
+                        default: return '#FFFFFF';
+                    }
+                });
+            }
+
+            if (description.match(/sprinkles/gi)) {
+                decorations.push('sprinkles');
+            }
+            if (description.match(/candles/gi)) {
+                decorations.push('candles');
+            }
+
+            createCake(tiers, colors, decorations);
+        }
+
+        document.getElementById('draw-button').addEventListener('click', () => {
+            const description = document.getElementById('description').value;
+            parseDescription(description);
+        });
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        init();
+    </script>
+</body>
+</html>
