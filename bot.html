@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bakes By Roro Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .chatbot {
+            width: 300px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            padding: 20px;
+        }
+        .chatbot-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .chatbot-body {
+            height: 300px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            border: 1px solid #e0e0e0;
+            padding: 10px;
+        }
+        .user-message, .bot-message {
+            margin: 5px 0;
+        }
+        .user-message {
+            text-align: right;
+            color: blue;
+        }
+        .bot-message {
+            text-align: left;
+            color: green;
+        }
+        .options {
+            margin-top: 10px;
+        }
+        .options button {
+            padding: 5px;
+            margin: 5px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .options button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="chatbot">
+        <div class="chatbot-header">Bianca - Bakes By Roro Assistant</div>
+        <div class="chatbot-body" id="chat-body">
+            <div class="bot-message">Hi, I am Bianca, Bakes By Roro's AI personal assistant. How can we help you today?</div>
+            <div class="options">
+                <button onclick="showContact()">Contact Us</button>
+                <button onclick="showLocation()">Our Location</button>
+                <button onclick="showOffer()">What We Offer</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showContact() {
+            const chatBody = document.getElementById('chat-body');
+            const message = document.createElement('div');
+            message.className = 'bot-message';
+            message.innerHTML = 'You can contact us at: +27813656918';
+            chatBody.appendChild(message);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function showLocation() {
+            const chatBody = document.getElementById('chat-body');
+            const message = document.createElement('div');
+            message.className = 'bot-message';
+            message.innerHTML = 'Our location: 131 Atamelang Street, Soshanguve-BB, Pretoria, Gauteng, South Africa';
+            chatBody.appendChild(message);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function showOffer() {
+            const chatBody = document.getElementById('chat-body');
+            const message = document.createElement('div');
+            message.className = 'bot-message';
+            message.innerHTML = 'We offer not just cakes but freshly baked cakes to create memories with your loved ones.';
+            chatBody.appendChild(message);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+    </script>
+</body>
+</html>
