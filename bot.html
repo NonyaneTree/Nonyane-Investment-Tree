@@ -3,102 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bakes By Roro Chatbot</title>
+    <title>Bianca - Bakes By Roro Assistant</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
+            background-color: #f4f4f9;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
-        .chatbot {
+        #chatbox {
             width: 300px;
             background: white;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             padding: 20px;
         }
-        .chatbot-header {
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .chatbot-body {
-            height: 300px;
+        #chat {
+            max-height: 300px;
             overflow-y: auto;
-            margin-bottom: 10px;
-            border: 1px solid #e0e0e0;
-            padding: 10px;
+            margin-bottom: 15px;
         }
-        .user-message, .bot-message {
+        .bot, .user {
+            padding: 8px;
             margin: 5px 0;
+            border-radius: 8px;
+            line-height: 1.5;
         }
-        .user-message {
-            text-align: right;
-            color: blue;
-        }
-        .bot-message {
+        .bot {
+            background: #e0e0e0;
             text-align: left;
-            color: green;
         }
-        .options {
-            margin-top: 10px;
-        }
-        .options button {
-            padding: 5px;
-            margin: 5px;
-            border: none;
-            background-color: #4CAF50;
+        .user {
+            background: #4CAF50;
             color: white;
-            cursor: pointer;
-            border-radius: 5px;
+            text-align: right;
         }
-        .options button:hover {
-            background-color: #45a049;
+        #userInput {
+            width: calc(100% - 50px);
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        #sendBtn {
+            padding: 8px 12px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #sendBtn:hover {
+            background: #45a049;
+        }
+        .option-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .option-button:hover {
+            background: #45a049;
         }
     </style>
 </head>
 <body>
-    <div class="chatbot">
-        <div class="chatbot-header">Bianca - Bakes By Roro Assistant</div>
-        <div class="chatbot-body" id="chat-body">
-            <div class="bot-message">Hi, I am Bianca, Bakes By Roro's AI personal assistant. How can we help you today?</div>
-            <div class="options">
-                <button onclick="showContact()">Contact Us</button>
-                <button onclick="showLocation()">Our Location</button>
-                <button onclick="showOffer()">What We Offer</button>
-            </div>
-        </div>
+    <div id="chatbox">
+        <div id="chat"></div>
+        <input type="text" id="userInput" placeholder="Say Hi or Hello...">
+        <button id="sendBtn">Send</button>
     </div>
 
     <script>
+        const chat = document.getElementById("chat");
+        const userInput = document.getElementById("userInput");
+        const sendBtn = document.getElementById("sendBtn");
+
+        // Start Conversation
+        function startChat() {
+            const message = userInput.value.trim();
+            userInput.value = "";
+
+            if (message) {
+                // Display user message
+                chat.innerHTML += `<div class="user">${message}</div>`;
+                chat.scrollTop = chat.scrollHeight;
+
+                // Check for greetings
+                if (/^(hi|hello)$/i.test(message)) {
+                    setTimeout(() => {
+                        botReply("Hi, I am Bianca, Bakes By Roro's AI personal assistant. How can we help you today?");
+                        showOptions();
+                    }, 500);
+                } else {
+                    setTimeout(() => {
+                        botReply("Please say 'Hi' or 'Hello' to start.");
+                    }, 500);
+                }
+            }
+        }
+
+        // Display bot reply
+        function botReply(text) {
+            chat.innerHTML += `<div class="bot">${text}</div>`;
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        // Show Options after greeting
+        function showOptions() {
+            const options = `
+                <button class="option-button" onclick="showContact()">Contact Us</button>
+                <button class="option-button" onclick="showLocation()">Our Location</button>
+                <button class="option-button" onclick="showOffer()">What We Offer</button>
+            `;
+            chat.innerHTML += options;
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        // Option Functions
         function showContact() {
-            const chatBody = document.getElementById('chat-body');
-            const message = document.createElement('div');
-            message.className = 'bot-message';
-            message.innerHTML = 'You can contact us at: +27813656918';
-            chatBody.appendChild(message);
-            chatBody.scrollTop = chatBody.scrollHeight;
+            botReply("Contact Us at: +27813656918");
         }
 
         function showLocation() {
-            const chatBody = document.getElementById('chat-body');
-            const message = document.createElement('div');
-            message.className = 'bot-message';
-            message.innerHTML = 'Our location: 131 Atamelang Street, Soshanguve-BB, Pretoria, Gauteng, South Africa';
-            chatBody.appendChild(message);
-            chatBody.scrollTop = chatBody.scrollHeight;
+            botReply("Our Location: 131 Atamelang Street, Soshanguve-BB, Pretoria, Gauteng, South Africa.");
         }
 
         function showOffer() {
-            const chatBody = document.getElementById('chat-body');
-            const message = document.createElement('div');
-            message.className = 'bot-message';
-            message.innerHTML = 'We offer not just cakes but freshly baked cakes to create memories with your loved ones.';
-            chatBody.appendChild(message);
-            chatBody.scrollTop = chatBody.scrollHeight;
+            botReply("We offer not just cakes but freshly baked cakes to create memories with your loved ones.");
         }
+
+        // Event Listeners
+        sendBtn.addEventListener("click", startChat);
+        userInput.addEventListener("keypress", (event) => {
+            if (event.key === "Enter") {
+                startChat();
+            }
+        });
     </script>
 </body>
 </html>
