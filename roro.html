@@ -17,10 +17,35 @@
             padding: 20px;
             text-align: center;
             color: #fff;
+            position: relative;
         }
         h1 {
             margin: 0;
             font-size: 2.5em;
+        }
+        .dropdown {
+            display: inline-block;
+            position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
         }
         .container {
             display: flex;
@@ -107,6 +132,14 @@
 <body>
     <header>
         <h1>Bakes By RORO</h1>
+        <div class="dropdown">
+            <button style="background-color: #ff66b2; color: white; border: none; padding: 10px; cursor: pointer;">Menu</button>
+            <div class="dropdown-content">
+                <a href="bot.html">Chat with AI</a>
+                <a href="design.html">Design Your Cake</a>
+                <a href="owner.html">About the Owner</a>
+            </div>
+        </div>
         <a href="bot.html" class="bot-icon">
             <img src="bot.png" alt="Chatbot" width="50" height="50"> <!-- Icon size can be adjusted -->
         </a>
